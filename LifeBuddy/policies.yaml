@@ -1,0 +1,74 @@
+# Zero-Trust Policy Server Gating Definitions (policies.yaml)
+
+environments:
+  localhost:
+    blocked_tools:
+      - "send_email"
+      - "deploy_production"
+  production:
+    blocked_tools: []
+
+roles:
+  # Product Owner Agent permissions
+  spiffe://lifebuddy.local/agent/product-owner:
+    allowed_tools:
+      - "read_backlog"
+      - "write_backlog"
+      - "list_features"
+      - "send_message"
+
+  # Business Analyst Agent permissions
+  spiffe://lifebuddy.local/agent/business-analyst:
+    allowed_tools:
+      - "read_backlog"
+      - "read_specs"
+      - "write_specs"
+      - "list_specs"
+      - "send_message"
+
+  # UX Designer Agent permissions
+  spiffe://lifebuddy.local/agent/ux-designer:
+    allowed_tools:
+      - "read_specs"
+      - "generate_ui_mockup"
+      - "write_css_tokens"
+      - "send_message"
+
+  # Tech Lead / Architect permissions
+  spiffe://lifebuddy.local/agent/tech-lead:
+    allowed_tools:
+      - "scan_codebase"
+      - "analyse_dependencies"
+      - "evaluate_performance"
+      - "verify_security_rules"
+      - "send_message"
+
+  # Developer Agent permissions
+  spiffe://lifebuddy.local/agent/developer:
+    allowed_tools:
+      - "create_file"
+      - "modify_file"
+      - "read_file"
+      - "list_directory"
+      - "compile_code"
+      - "send_message"
+
+  # QA Engineer Agent permissions
+  spiffe://lifebuddy.local/agent/qa-engineer:
+    allowed_tools:
+      - "execute_playwright_test"
+      - "read_specs"
+      - "read_code"
+      - "trace_trajectories"
+      - "log_defect"
+      - "send_message"
+
+  # Release Manager Agent permissions
+  spiffe://lifebuddy.local/agent/release-manager:
+    allowed_tools:
+      - "execute_pipeline"
+      - "provision_gcp_resources"
+      - "verify_sbom"
+      - "generate_vibe_diff"
+      - "deploy_cloud_run"
+      - "send_message"

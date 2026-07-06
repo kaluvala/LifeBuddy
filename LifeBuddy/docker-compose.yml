@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # Life Buddy Backend Microservice
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:secret_pass@db:5432/lifebuddy
+      - GCAL_MCP_URL=http://localhost:8080/mcp
+    depends_on:
+      - db
+    networks:
+      - lifebuddy_network
+
+  # Isolated PostgreSQL Database with pgvector support
+  db:
+    image: pgvector/pgvector:pg16
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret_pass
+      - POSTGRES_DB=lifebuddy
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - lifebuddy_network
+
+volumes:
+  db_data:
+
+networks:
+  lifebuddy_network:
+    driver: bridge

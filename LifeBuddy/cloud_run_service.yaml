@@ -1,0 +1,25 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: lifebuddy-backend
+  namespace: '501410'
+  labels:
+    cloud.googleapis.com/location: us-central1
+spec:
+  template:
+    spec:
+      containers:
+        - image: gcr.io/lifebuddy-501410/backend:latest
+          ports:
+            - containerPort: 8000
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 512Mi
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://postgres:secret_pass@10.0.0.3:5432/lifebuddy"
+            - name: GCAL_MCP_URL
+              value: "http://gcal-mcp-service.internal:8080/mcp"
+            - name: GEMINI_API_KEY
+              value: "[[GEMINI_API_KEY]]"
