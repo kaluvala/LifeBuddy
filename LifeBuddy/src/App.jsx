@@ -1372,8 +1372,10 @@ export default function Dashboard() {
                   )}
                 </div>
                 <div 
-                  className="column-body"
+                  className={`column-body ${draggedOverColumn === 'Q1' ? 'drag-over' : ''}`}
                   onDragOver={handleDragOver}
+                  onDragEnter={() => setDraggedOverColumn('Q1')}
+                  onDragLeave={() => setDraggedOverColumn(null)}
                   onDrop={(e) => handleDrop(e, 'Q1')}
                 >
                   {tasks.filter(t => t.quadrant === 'Q1' || t.quadrant === 'Q3').map(task => (
@@ -1411,8 +1413,10 @@ export default function Dashboard() {
                   )}
                 </div>
                 <div 
-                  className="column-body"
+                  className={`column-body ${draggedOverColumn === 'Q2' ? 'drag-over' : ''}`}
                   onDragOver={handleDragOver}
+                  onDragEnter={() => setDraggedOverColumn('Q2')}
+                  onDragLeave={() => setDraggedOverColumn(null)}
                   onDrop={(e) => handleDrop(e, 'Q2')}
                 >
                   {tasks.filter(t => t.quadrant === 'Q2').map(task => (
@@ -1454,8 +1458,10 @@ export default function Dashboard() {
                 </div>
                 {laterExpanded && (
                   <div 
-                    className="column-body"
+                    className={`column-body ${draggedOverColumn === 'Q4' ? 'drag-over' : ''}`}
                     onDragOver={handleDragOver}
+                    onDragEnter={() => setDraggedOverColumn('Q4')}
+                    onDragLeave={() => setDraggedOverColumn(null)}
                     onDrop={(e) => handleDrop(e, 'Q4')}
                   >
                     {tasks.filter(t => t.quadrant === 'Q4').map(task => (
