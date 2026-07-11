@@ -6,7 +6,7 @@
 LifeBuddy is an intelligent, multi-agent personal organizer designed to eliminate the cognitive load of daily planning. By leveraging the Agent Development Kit (ADK) and secure execution environments, LifeBuddy acts as your autonomous life concierge.
 
 ## 📌 The Problem
-Modern professionals suffer from decision fatigue. Balancing urgent work deadlines, scheduling appointments, and remembering mundane household chores (like grocery shopping) leads to burnout. Traditional to-do apps require manual sorting and lack the intelligence to proactively help you manage your time.
+Modern professionals suffer from decision fatigue. Balancing urgent work deadlines, scheduling appointments, and remembering mundane household chores (like grocery shopping) leads to burnout. Traditional to-do apps require manual sorting and lack the intelligence to proactively help you manage your time. 
 
 ## 💡 The Solution
 LifeBuddy solves this by utilizing a specialized team of AI Sub-Agents:
