@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeBuddy - Kaggle Capstone</title>
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.min.css">
+    
+    <style>
+        :root {
+            --primary: #818cf8;        /* Indigo */
+            --accent: #2563eb;         /* Classic Blue */
+            --bg: #0f172a;             /* Dark Navy Slate-900 */
+            --panel: #1e293b;          /* Slate-800 */
+            --border: #334155;         /* Slate-700 */
+            --text-primary: #f8fafc;   /* Slate-50 */
+            --text-secondary: #cbd5e1; /* Slate-300 */
+        }
+        
+        .reveal { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text-secondary);
+        }
+        
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4 { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-weight: 700;
+            text-transform: none;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .reveal h1 {
+            font-size: 2.8em !important;
+            margin-bottom: 20px !important;
+            color: #ffffff !important;
+        }
+
+        .reveal h2 {
+            font-size: 1.8em !important;
+            color: #ffffff !important;
+            margin-bottom: 20px !important;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        .reveal h3 {
+            font-size: 1.15em !important;
+            color: var(--primary) !important;
+            font-weight: 700;
+            margin-bottom: 8px !important;
+        }
+
+        .slide-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .slide-layout-cols {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        /* Clean standard list style to prevent alignment and clipping issues */
+        .reveal ul {
+            display: block;
+            margin: 10px 0 0 20px !important;
+            padding: 0 !important;
+            list-style-type: disc !important;
+        }
+
+        .reveal li {
+            margin-bottom: 12px !important;
+            line-height: 1.5 !important;
+            font-size: 0.7em !important; /* Bounded size to prevent overflow clipping */
+            color: var(--text-secondary) !important;
+            padding-left: 5px !important;
+        }
+
+        .reveal li strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .highlight-container {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: 20px 25px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .code-box {
+            background: #090d16;
+            color: #f3f4f6;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            padding: 15px 20px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.65em !important;
+            line-height: 1.5;
+            margin-top: 15px;
+            text-align: left;
+        }
+
+        img.slide-screenshot {
+            border-radius: 8px;
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            max-height: 400px;
+            width: 100%;
+            object-fit: contain;
+            background: #0f172a;
+            padding: 4px;
+        }
+
+        .slide-footer {
+            margin-top: 30px;
+            font-size: 0.6em;
+            color: #64748b;
+            border-top: 1px solid var(--border);
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Slide 1: Intro -->
+            <section>
+                <div class="highlight-container" style="text-align: center; max-width: 700px; margin: 0 auto; border-left-width: 6px; padding: 40px 30px;">
+                    <h1 style="font-size: 3.2em; margin: 0; font-weight: 800; color: #ffffff !important;">Life<span style="color: var(--primary);">Buddy</span></h1>
+                    <p style="font-size: 1.05em; color: var(--text-secondary); margin-top: 10px; font-weight: 500;">Your Autonomous Life Concierge</p>
+                    <div style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 15px; font-size: 0.75em; color: #64748b;">
+                        <div style="margin-bottom: 8px;"><strong>Google AI Intensive Capstone</strong> &bull; <strong>Track:</strong> Concierge Agents</div>
+                        <div style="color: var(--text-secondary);"><strong>Authors:</strong> Naveen Kumar Kaluvala & Charitha Miryala</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 2: Problem -->
+            <section>
+                <div class="slide-container">
+                    <h2>The Challenge</h2>
+                    <div class="highlight-container">
+                        <ul>
+                            <li><strong>Decision Fatigue:</strong> Balancing urgent deadlines, household tasks, and scheduling leads to cognitive fatigue.</li>
+                            <li><strong>Passive Task Tools:</strong> Traditional organizer apps require manual organization and do not help with actual execution.</li>
+                            <li><strong>Concierge Solution:</strong> The need for an active assistant that automates triage, prioritizes, and safely handles logistics on behalf of the user.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 3: System Architecture -->
+            <section>
+                <div class="slide-container" style="max-width: 1100px;">
+                    <div class="slide-layout-cols">
+                        <div>
+                            <h2>System Architecture</h2>
+                            <div class="highlight-container" style="padding: 20px;">
+                                <p style="font-size: 0.75em; line-height: 1.6; margin: 0;">
+                                    Decoupled multi-tier design: A local React Frontend served dynamically via a FastAPI backend orchestrator. High-performance background AI tasks utilize PostgreSQL/pgvector and MCP interfaces.
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <img src="./assets/arch_diagram.jpg" class="slide-screenshot">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: Core Components -->
+            <section>
+                <div class="slide-container">
+                    <h2>Core Components</h2>
+                    <div class="slide-layout-cols" style="gap: 20px; align-items: start;">
+                        <div class="highlight-container" style="padding: 15px;">
+                            <h3>ADK Orchestration</h3>
+                            <p style="font-size: 0.65em; margin: 0; line-height: 1.4; color: var(--text-secondary);">DAG-based message bus coordinating agent handoffs and context states.</p>
+                        </div>
+                        <div class="highlight-container" style="padding: 15px;">
+                            <h3>Planner Agent</h3>
+                            <p style="font-size: 0.65em; margin: 0; line-height: 1.4; color: var(--text-secondary);">NLP-based parser that automatically routes tasks to the Eisenhower Matrix.</p>
+                        </div>
+                        <div class="highlight-container" style="padding: 15px;">
+                            <h3>Shopper Agent</h3>
+                            <p style="font-size: 0.65em; margin: 0; line-height: 1.4; color: var(--text-secondary);">pgvector vector store similarity matches templates for proactive list building.</p>
+                        </div>
+                        <div class="highlight-container" style="padding: 15px;">
+                            <h3>MCP Integrations</h3>
+                            <p style="font-size: 0.65em; margin: 0; line-height: 1.4; color: var(--text-secondary);">Secure tool interfaces executing direct calendar and email updates.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: SDLC & Environments -->
+            <section>
+                <div class="slide-container">
+                    <h2>SDLC Conventions</h2>
+                    <div class="highlight-container">
+                        <ul>
+                            <li><strong>Environment Separation:</strong> Configuration variables isolate Development, Staging, and Production layers via standard <code>deployment.yaml</code> files.</li>
+                            <li><strong>Local Sandboxing:</strong> All changes are deployed and verified on local execution environments before cloud deployment.</li>
+                            <li><strong>High Quality Standards:</strong> Gherkin specifications align features across development, QA, and deployment tiers.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: Multi-Agent Optimization -->
+            <section>
+                <div class="slide-container">
+                    <h2>Multi-Agent Optimization</h2>
+                    <div class="highlight-container">
+                        <ul>
+                            <li><strong>7 Specialized Roles:</strong> Separation of roles (Product Owner, QA, UX, Dev, etc.) models professional team workflows.</li>
+                            <li><strong>Artifact Handoffs:</strong> Strict interface contracts govern the transfer of specs, plans, and testing scripts between agents.</li>
+                            <li><strong>Minimized Context Windows:</strong> Narrow, task-oriented context scopes prevent model rot, optimize token consumption, and eliminate code hallucinations.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: Context Architecture -->
+            <section>
+                <div class="slide-container">
+                    <h2>Context Integrity</h2>
+                    <div class="highlight-container">
+                        <ul>
+                            <li><strong>AGENTS.md (Static Context):</strong> Houses global rules, directory indexes, core technical stacks, and security boundaries.</li>
+                            <li><strong>WORKSPACE_MEM.md (Dynamic Context):</strong> Acts as the dynamic sprint board tracking tasks, execution progress, and messaging logs.</li>
+                            <li><strong>Zero Ambient Authority:</strong> Prevents access credential creep by granting agents just-in-time tokens.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 8: MCP & Progressive Skills -->
+            <section>
+                <div class="slide-container">
+                    <h2>Progressive Skills & MCP</h2>
+                    <div class="highlight-container">
+                        <ul>
+                            <li><strong>MCP Server Nodes:</strong> Connections like <code>spec-repository-mcp</code> and <code>knowledge-base-mcp</code> securely bind agents to codebases.</li>
+                            <li><strong>On-Demand Skills:</strong> Progressive disclosure rules load instructions (e.g. <code>data-autocleaning</code>) only when triggered by matching tasks.</li>
+                            <li><strong>Efficiency:</strong> Keeps prompt context clean and focused on task execution.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 9: BDD Specifications -->
+            <section>
+                <div class="slide-container">
+                    <h2>BDD Specifications</h2>
+                    <div style="font-size: 0.75em; color: var(--text-secondary); margin-bottom: 10px;">
+                        Gherkin specs act as the executable bridge between business rules and automated testing:
+                    </div>
+                    <div class="code-box">
+                        <span style="color: #60a5fa; font-weight: bold;">Feature:</span> Predictive Household Shopping List<br>
+                        &nbsp;&nbsp;<span style="color: #34d399;">Given</span> a user's purchase history table in PostgreSQL<br>
+                        &nbsp;&nbsp;<span style="color: #60a5fa;">When</span> they prompt the Shopper Agent for "Summer BBQ"<br>
+                        &nbsp;&nbsp;<span style="color: #f43f5e;">Then</span> the agent queries pgvector semantic similarity<br>
+                        &nbsp;&nbsp;<span style="color: #f59e0b;">And</span> populates the shopping list with corresponding items
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 10: Zero-Trust Security -->
+            <section>
+                <div class="slide-container" style="max-width: 1100px;">
+                    <div class="slide-layout-cols">
+                        <div>
+                            <h2>Zero-Trust Security</h2>
+                            <div class="highlight-container" style="padding: 20px;">
+                                <ul>
+                                    <li><strong>Structural Gate:</strong> SPIFFE role verification blocks unauthorized tool execution.</li>
+                                    <li><strong>Semantic Gate:</strong> Scans payloads for PII, secrets, and credentials.</li>
+                                    <li><strong>HITL Review:</strong> High-stakes actions require manual logic reviews.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            <img src="./assets/policy_server.png" class="slide-screenshot">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 11: User Journeys (Vertical Slides) -->
+            <section>
+                <section>
+                    <div class="slide-container">
+                        <h2>Core User Journeys</h2>
+                        <div class="highlight-container">
+                            <p style="margin: 0; font-size: 0.8em; line-height: 1.6;">
+                                We mapped out and verified the core product interactive journeys. Press the <strong>down arrow</strong> key or swipe down to see the real-world flow screenshots.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="slide-container" style="max-width: 1100px;">
+                        <div class="slide-layout-cols">
+                            <div>
+                                <h3>1. Task Buddy</h3>
+                                <div class="highlight-container" style="padding: 20px;">
+                                    <p style="font-size: 0.7em; line-height: 1.5; margin: 0;">
+                                        Natural Language task creation. Instantly parses deadlines, scheduling commands, and priority instructions, automatically allocating them to the correct Eisenhower quadrants on submission.
+                                    </p>
+                                </div>
+                            </div>
+                            <div>
+                                <img src="./assets/journey_1_tasks.jpg" class="slide-screenshot">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="slide-container" style="max-width: 1100px;">
+                        <div class="slide-layout-cols">
+                            <div>
+                                <h3>2. Timeline Buddy</h3>
+                                <div class="highlight-container" style="padding: 20px;">
+                                    <p style="font-size: 0.75em; line-height: 1.5; margin: 0;">
+                                        Provides visual calendar views by Day, Week, and Month. Integrated with the Planner Agent to support natural drag-and-drop scheduling transitions.
+                                    </p>
+                                </div>
+                            </div>
+                            <div>
+                                <img src="./assets/journey_2_timeline_week.jpg" class="slide-screenshot">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="slide-container" style="max-width: 1100px;">
+                        <div class="slide-layout-cols">
+                            <div>
+                                <h3>3. Groceries Buddy</h3>
+                                <div class="highlight-container" style="padding: 20px;">
+                                    <p style="font-size: 0.7em; line-height: 1.5; margin: 0;">
+                                        Predictive shopping list building. Vector store template matching loads recipes and templates semantically, with proactive historically-based purchase recommendations.
+                                    </p>
+                                </div>
+                            </div>
+                            <div>
+                                <img src="./assets/journey_3_groceries_predict.jpg" class="slide-screenshot">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="slide-container" style="max-width: 1100px;">
+                        <div class="slide-layout-cols">
+                            <div>
+                                <h3>4. Security Gate</h3>
+                                <div class="highlight-container" style="padding: 20px;">
+                                    <p style="font-size: 0.7em; line-height: 1.5; margin: 0;">
+                                        Human-In-The-Loop gating. Triggers a logic review overlay when high-stakes calendar MCP operations are initiated, ensuring zero-trust verification.
+                                    </p>
+                                </div>
+                            </div>
+                            <div>
+                                <img src="./assets/journey_4_security_toggle.jpg" class="slide-screenshot">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Slide 12: Live Demo -->
+            <section>
+                <div class="slide-container">
+                    <h2>Live Product Demo</h2>
+                    <div class="highlight-container">
+                        <ul>
+                            <li><strong>Task Buddy:</strong> Natural language parsing and persistent Eisenhower quadrant reordering.</li>
+                            <li><strong>Security Interceptor:</strong> Automatic policy gating and Human-in-the-loop logic reviews.</li>
+                            <li><strong>Groceries Buddy:</strong> Vector template matching, proactive history prediction, and note editing.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 12: Outro -->
+            <section>
+                <div class="highlight-container" style="text-align: center; max-width: 650px; margin: 0 auto; padding: 40px 30px;">
+                    <h1 style="color: #ffffff !important; font-weight: 800; font-size: 3em !important; margin: 0;">Thank You</h1>
+                    <p style="color: var(--text-secondary); margin-top: 15px; font-weight: 500;">LifeBuddy Capstone Presentation</p>
+                    <div style="margin-top: 40px; border: 1px dashed var(--border); background: var(--bg); padding: 15px 25px; border-radius: 8px; display: inline-block;">
+                        <span style="font-family: monospace; font-size: 1.1em; font-weight: 700; color: var(--primary);">github.com/kaluvala/LifeBuddy</span>
+                    </div>
+                </div>
+            </section>
+            
+        </div>
+    </div>
+
+    <!-- Reveal.js Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade',
+            center: true,
+            controls: true,
+            progress: true,
+        });
+    </script>
+</body>
+</html>
